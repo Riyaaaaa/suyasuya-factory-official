@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>すやすやファクトリー</title>
+    <meta
+      name="description"
+      content="すやすやファクトリーのゲーム作品一覧。CODE::LUX、Monesis、Floraのプラットフォームリンク。"
+    >
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #101114;
+        --surface: #17191d;
+        --surface-strong: #1d2026;
+        --text: #f4f0e8;
+        --muted: #a8a39a;
+        --line: rgba(244, 240, 232, 0.14);
+        --accent: #79d7c5;
+        --accent-soft: rgba(121, 215, 197, 0.14);
+        --shadow: rgba(0, 0, 0, 0.36);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-width: 320px;
+        background: var(--bg);
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background:
+          linear-gradient(180deg, rgba(121, 215, 197, 0.08), transparent 34rem),
+          var(--bg);
+        color: var(--text);
+        font-family:
+          "Inter", "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN",
+          Meiryo, system-ui, sans-serif;
+        line-height: 1.75;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .site {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 56px 0 72px;
+      }
+
+      .masthead {
+        display: grid;
+        gap: 18px;
+        padding-bottom: 38px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .circle-name {
+        margin: 0;
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin: 0;
+        font-size: 5rem;
+        font-weight: 650;
+        line-height: 0.98;
+        letter-spacing: 0;
+        white-space: nowrap;
+      }
+
+      .intro {
+        max-width: 620px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.98rem;
+      }
+
+      .game-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+        padding-top: 34px;
+      }
+
+      .game-card {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        min-width: 0;
+        min-height: 100%;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: linear-gradient(180deg, var(--surface-strong), var(--surface));
+        text-decoration: none;
+        box-shadow: 0 18px 42px var(--shadow);
+        transition:
+          transform 160ms ease,
+          border-color 160ms ease,
+          box-shadow 160ms ease;
+      }
+
+      .game-card:hover,
+      .game-card:focus-visible {
+        transform: translateY(-4px);
+        border-color: rgba(121, 215, 197, 0.64);
+        box-shadow: 0 24px 58px rgba(0, 0, 0, 0.48);
+      }
+
+      .game-card:focus-visible {
+        outline: 3px solid var(--accent-soft);
+        outline-offset: 4px;
+      }
+
+      .thumb {
+        width: 100%;
+        margin: 0;
+        aspect-ratio: 2 / 3;
+        overflow: hidden;
+        background: #0b0c0f;
+      }
+
+      .thumb img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: scale 220ms ease;
+      }
+
+      .game-card:hover .thumb img,
+      .game-card:focus-visible .thumb img {
+        scale: 1.035;
+      }
+
+      .game-copy {
+        display: grid;
+        align-content: start;
+        gap: 12px;
+        padding: 20px;
+      }
+
+      .game-title {
+        margin: 0;
+        font-size: 1.45rem;
+        font-weight: 700;
+        line-height: 1.12;
+        letter-spacing: 0;
+      }
+
+      .genre {
+        width: fit-content;
+        max-width: 100%;
+        margin: 0;
+        padding: 3px 9px;
+        border: 1px solid rgba(121, 215, 197, 0.34);
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: #c9fff3;
+        font-size: 0.78rem;
+        font-weight: 700;
+        line-height: 1.5;
+      }
+
+      .description {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 44px;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .staff {
+        margin-top: 54px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+      }
+
+      .section-label {
+        margin: 0 0 16px;
+        color: var(--accent);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .staff-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .staff-member {
+        display: grid;
+        grid-template-columns: 56px minmax(0, 1fr);
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(23, 25, 29, 0.66);
+        text-decoration: none;
+      }
+
+      .staff-member[href]:hover,
+      .staff-member[href]:focus-visible {
+        border-color: rgba(121, 215, 197, 0.56);
+      }
+
+      .staff-member[href]:focus-visible {
+        outline: 3px solid var(--accent-soft);
+        outline-offset: 3px;
+      }
+
+      .staff-member img {
+        display: block;
+        width: 56px;
+        height: 56px;
+        border-radius: 6px;
+        object-fit: cover;
+      }
+
+      .staff-name {
+        margin: 0;
+        color: var(--text);
+        font-size: 0.92rem;
+        font-weight: 700;
+        line-height: 1.35;
+      }
+
+      .staff-role {
+        margin: 3px 0 0;
+        color: var(--muted);
+        font-size: 0.76rem;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 900px) {
+        h1 {
+          font-size: 3.4rem;
+        }
+
+        .game-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 620px) {
+        .site {
+          width: min(100% - 28px, 1120px);
+          padding: 34px 0 48px;
+        }
+
+        .masthead {
+          padding-bottom: 28px;
+        }
+
+        h1 {
+          font-size: 2.1rem;
+        }
+
+        .game-grid {
+          grid-template-columns: 1fr;
+          gap: 18px;
+          padding-top: 26px;
+        }
+
+        .game-card {
+          grid-template-columns: minmax(104px, 36%) minmax(0, 1fr);
+          grid-template-rows: auto;
+        }
+
+        .thumb {
+          height: 100%;
+          aspect-ratio: auto;
+        }
+
+        .game-copy {
+          padding: 16px;
+        }
+
+        .game-title {
+          font-size: 1.22rem;
+        }
+
+        .description {
+          font-size: 0.84rem;
+          line-height: 1.65;
+        }
+
+        .footer {
+          display: block;
+        }
+
+        .staff-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 420px) {
+        h1 {
+          font-size: 1.72rem;
+        }
+
+        .game-card {
+          grid-template-columns: 1fr;
+        }
+
+        .thumb {
+          aspect-ratio: 2 / 3;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="site">
+      <header class="masthead">
+        <p class="circle-name">Suyasuya Factory</p>
+        <h1>すやすやファクトリー</h1>
+        <p class="intro">
+          インターネットでひっそりと活動するインディーゲームサークル。
+        </p>
+      </header>
+
+      <section class="game-grid" aria-label="ゲーム一覧">
+        <a
+          class="game-card"
+          href="https://unityroom.com/games/flora_s"
+          aria-label="Flora のページを開く"
+        >
+          <figure class="thumb">
+            <img
+              src="assets/flora.jpg"
+              alt="Flora"
+              width="600"
+              height="848"
+            >
+          </figure>
+          <div class="game-copy">
+            <h2 class="game-title">Flora</h2>
+            <p class="genre">箱庭風パズル</p>
+            <p class="description">
+              少女たちの花の色は何色か？　理想の環境を作り、少女たちを「開花」させよう――。
+            </p>
+          </div>
+        </a>
+
+        <a
+          class="game-card"
+          href="https://store.steampowered.com/app/3850630/CODELUX/"
+          aria-label="CODE::LUX のページを開く"
+        >
+          <figure class="thumb">
+            <img
+              src="assets/code-lux.png"
+              alt="CODE::LUX"
+              width="600"
+              height="900"
+            >
+          </figure>
+          <div class="game-copy">
+            <h2 class="game-title">CODE::LUX</h2>
+            <p class="genre">短編SFアドベンチャー</p>
+            <p class="description">
+              泥沼化した世界大戦によって主要な電力インフラが失われ、文明が崩壊した未来。
+              遺物を求めて廃墟を渡るスカベンジャーのカイは、旧国家システムを掌握する謎の少女ミツハと出会う。
+              彼女の願いは、ただひとつ――かつて世界を支えた核融合炉を再び動かすこと。
+            </p>
+          </div>
+        </a>
+
+        <a class="game-card" href="#" aria-label="Monesis は開発中です">
+          <figure class="thumb">
+            <img
+              src="assets/monesis.webp"
+              alt="Monesis"
+              width="600"
+              height="848"
+            >
+          </figure>
+          <div class="game-copy">
+            <h2 class="game-title">Monesis</h2>
+            <p class="genre">ローグライクオートバトルRPG・開発中</p>
+            <p class="description">
+              少女はただ尊敬する人のために武器を手に取った。
+            </p>
+          </div>
+        </a>
+      </section>
+
+      <section class="staff" aria-label="サークルメンバー">
+        <p class="section-label">Members</p>
+        <div class="staff-grid">
+          <a
+            class="staff-member"
+            href="https://x.com/riyaaaaasan"
+            aria-label="りやのXアカウントを開く"
+          >
+            <img src="assets/staff-riya.png" alt="" width="56" height="56">
+            <div>
+              <p class="staff-name">りや</p>
+              <p class="staff-role">ディレクター、プログラム、シナリオ</p>
+            </div>
+          </a>
+
+          <div class="staff-member">
+            <img src="assets/staff-moriken.png" alt="" width="56" height="56">
+            <div>
+              <p class="staff-name">もりけん</p>
+              <p class="staff-role">UI/UXデザイン</p>
+            </div>
+          </div>
+
+          <a
+            class="staff-member"
+            href="https://x.com/gya_77"
+            aria-label="カイヅカのXアカウントを開く"
+          >
+            <img src="assets/staff-kaiduka.png" alt="" width="56" height="56">
+            <div>
+              <p class="staff-name">カイヅカ</p>
+              <p class="staff-role">Flora/Monesis アート/コンセプト</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>すやすやファクトリー</span>
+        <span>Games and links</span>
+      </footer>
+    </main>
+  </body>
+</html>
